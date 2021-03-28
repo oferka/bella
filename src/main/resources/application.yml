@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: "bella"
+
+server:
+  port: 0
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    org.springframework.data.convert.CustomConversions: ERROR
+    org.springframework.data.elasticsearch.support.VersionInfo: ERROR
+    org.ok.milki: INFO
