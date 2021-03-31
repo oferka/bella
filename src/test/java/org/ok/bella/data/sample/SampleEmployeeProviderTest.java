@@ -1,12 +1,14 @@
 package org.ok.bella.data.sample;
 
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.ok.bella.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 class SampleEmployeeProviderTest {
@@ -16,7 +18,14 @@ class SampleEmployeeProviderTest {
 
     @Test
     void shouldReturnItem() {
-        Employee employee = sampleEmployeeProvider.getItem();
-        assertNotNull(employee);
+        Employee item = sampleEmployeeProvider.getItem();
+        assertNotNull(item);
+    }
+
+    @Test
+    void shouldReturnItems() {
+        int numberOfItems = 10;
+        List<Employee> items = sampleEmployeeProvider.getItems(numberOfItems);
+        assertEquals(numberOfItems, items.size());
     }
 }

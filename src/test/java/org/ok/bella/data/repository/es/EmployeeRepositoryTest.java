@@ -6,10 +6,6 @@ import org.ok.bella.data.sample.SampleEmployeeProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import javax.validation.constraints.NotNull;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest
 class EmployeeRepositoryTest {
 
