@@ -1,9 +1,6 @@
 package org.ok.bella.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
@@ -16,6 +13,7 @@ import static org.springframework.data.elasticsearch.annotations.FieldType.Keywo
 
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
 @ToString
 @Document(indexName = "bella_employee")
 public class Employee {

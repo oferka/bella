@@ -17,4 +17,6 @@ logging:
     org.springframework.web: INFO
     org.springframework.data.convert.CustomConversions: ERROR
     org.springframework.data.elasticsearch.support.VersionInfo: ERROR
+    org.elasticsearch.client: TRACE
+    org.apache.http: INFO
     org.ok.milki: INFO
