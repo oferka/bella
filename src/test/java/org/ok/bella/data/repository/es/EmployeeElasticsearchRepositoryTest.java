@@ -1,7 +1,5 @@
 package org.ok.bella.data.repository.es;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.ok.bella.data.sample.SampleEmployeeProvider;
 import org.ok.bella.model.Employee;
