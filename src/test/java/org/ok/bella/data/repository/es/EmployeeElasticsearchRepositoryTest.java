@@ -17,134 +17,126 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class EmployeeRepositoryTest {
+class EmployeeElasticsearchRepositoryTest {
 
     @Autowired
-    private EmployeeRepository employeeRepository;
+    private EmployeeElasticsearchRepository employeeElasticsearchRepository;
 
     @Autowired
     private SampleEmployeeProvider sampleEmployeeProvider;
 
-    @BeforeEach
-    void setUp() {
-    }
-
-    @AfterEach
-    void tearDown() {
-    }
-
     @Test
     void shouldSaveItem() {
         Employee item = sampleEmployeeProvider.getItem();
-        Employee savedItem = employeeRepository.save(item);
+        Employee savedItem = employeeElasticsearchRepository.save(item);
         assertEquals(item, savedItem);
-        employeeRepository.delete(savedItem);
+        employeeElasticsearchRepository.delete(savedItem);
     }
 
     @Test
     void shouldSaveItems() {
         int numberOfItems = 10;
         List<Employee> items = sampleEmployeeProvider.getItems(numberOfItems);
-        Iterable<Employee> savedItems = employeeRepository.saveAll(items);
+        Iterable<Employee> savedItems = employeeElasticsearchRepository.saveAll(items);
         assertNotNull(savedItems);
-        employeeRepository.deleteAll(savedItems);
+        employeeElasticsearchRepository.deleteAll(savedItems);
     }
 
     @Test
     void shouldFindItemById() {
         Employee item = sampleEmployeeProvider.getItem();
-        Employee savedItem = employeeRepository.save(item);
-        Optional<Employee> foundItemOptional = employeeRepository.findById(item.getId());
+        Employee savedItem = employeeElasticsearchRepository.save(item);
+        Optional<Employee> foundItemOptional = employeeElasticsearchRepository.findById(item.getId());
         assertTrue(foundItemOptional.isPresent());
         Employee foundItem = foundItemOptional.get();
         assertEquals(item, foundItem);
-        employeeRepository.delete(savedItem);
+        employeeElasticsearchRepository.delete(savedItem);
     }
 
     @Test
     void shouldFindAllItems() {
         int numberOfItems = 10;
         List<Employee> items = sampleEmployeeProvider.getItems(numberOfItems);
-        Iterable<Employee> savedItems = employeeRepository.saveAll(items);
-        Iterable<Employee> foundItems = employeeRepository.findAll();
+        Iterable<Employee> savedItems = employeeElasticsearchRepository.saveAll(items);
+        Iterable<Employee> foundItems = employeeElasticsearchRepository.findAll();
         assertNotNull(foundItems);
-        employeeRepository.deleteAll(savedItems);
+        employeeElasticsearchRepository.deleteAll(savedItems);
     }
 
     @Test
     void shouldFindAllItemsSortedByName() {
         int numberOfItems = 10;
         List<Employee> items = sampleEmployeeProvider.getItems(numberOfItems);
-        Iterable<Employee> savedItems = employeeRepository.saveAll(items);
-        Iterable<Employee> foundItems = employeeRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
+        Iterable<Employee> savedItems = employeeElasticsearchRepository.saveAll(items);
+        Iterable<Employee> foundItems = employeeElasticsearchRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
         assertNotNull(foundItems);
-        employeeRepository.deleteAll(savedItems);
+        employeeElasticsearchRepository.deleteAll(savedItems);
     }
 
     @Test
     void shouldFindAllItemsSortedById() {
         int numberOfItems = 10;
         List<Employee> items = sampleEmployeeProvider.getItems(numberOfItems);
-        Iterable<Employee> savedItems = employeeRepository.saveAll(items);
-        Iterable<Employee> foundItems = employeeRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
+        Iterable<Employee> savedItems = employeeElasticsearchRepository.saveAll(items);
+        Iterable<Employee> foundItems = employeeElasticsearchRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
         assertNotNull(foundItems);
-        employeeRepository.deleteAll(savedItems);
+        employeeElasticsearchRepository.deleteAll(savedItems);
     }
 
     @Test
     void shouldFindAllItemsPaged() {
         int numberOfItems = 10;
         List<Employee> items = sampleEmployeeProvider.getItems(numberOfItems);
-        Iterable<Employee> savedItems = employeeRepository.saveAll(items);
-        Page<Employee> foundItems = employeeRepository.findAll(PageRequest.of(0, 4));
+        Iterable<Employee> savedItems = employeeElasticsearchRepository.saveAll(items);
+        Page<Employee> foundItems = employeeElasticsearchRepository.findAll(PageRequest.of(0, 4));
         assertNotNull(foundItems);
-        employeeRepository.deleteAll(savedItems);
+        employeeElasticsearchRepository.deleteAll(savedItems);
     }
 
     @Test
     void shouldFindAllItemsPagedAndSorted() {
         int numberOfItems = 10;
         List<Employee> items = sampleEmployeeProvider.getItems(numberOfItems);
-        Iterable<Employee> savedItems = employeeRepository.saveAll(items);
-        Page<Employee> foundItems = employeeRepository.findAll(PageRequest.of(0, 4, Sort.by(Sort.Direction.ASC, "name")));
+        Iterable<Employee> savedItems = employeeElasticsearchRepository.saveAll(items);
+        Page<Employee> foundItems = employeeElasticsearchRepository.findAll(PageRequest.of(0, 4, Sort.by(Sort.Direction.ASC, "name")));
         assertNotNull(foundItems);
-        employeeRepository.deleteAll(savedItems);
+        employeeElasticsearchRepository.deleteAll(savedItems);
     }
 
     @Test
     void shouldExistById() {
         Employee item = sampleEmployeeProvider.getItem();
-        Employee savedItem = employeeRepository.save(item);
-        boolean exists = employeeRepository.existsById(savedItem.getId());
+        Employee savedItem = employeeElasticsearchRepository.save(item);
+        boolean exists = employeeElasticsearchRepository.existsById(savedItem.getId());
         assertTrue(exists);
-        employeeRepository.delete(savedItem);
+        employeeElasticsearchRepository.delete(savedItem);
     }
 
     @Test
     void shouldCount() {
         int numberOfItems = 10;
         List<Employee> items = sampleEmployeeProvider.getItems(numberOfItems);
-        Iterable<Employee> savedItems = employeeRepository.saveAll(items);
-        long count = employeeRepository.count();
+        Iterable<Employee> savedItems = employeeElasticsearchRepository.saveAll(items);
+        long count = employeeElasticsearchRepository.count();
         assertEquals(count, numberOfItems);
-        employeeRepository.deleteAll(savedItems);
+        employeeElasticsearchRepository.deleteAll(savedItems);
     }
 
     @Test
     void shouldDeleteItem() {
         Employee item = sampleEmployeeProvider.getItem();
-        Employee savedItem = employeeRepository.save(item);
-        employeeRepository.delete(item);
-        boolean exists = employeeRepository.existsById(savedItem.getId());
+        Employee savedItem = employeeElasticsearchRepository.save(item);
+        employeeElasticsearchRepository.delete(item);
+        boolean exists = employeeElasticsearchRepository.existsById(savedItem.getId());
         assertFalse(exists);
     }
 
     @Test
     void shouldDeleteById() {
         Employee item = sampleEmployeeProvider.getItem();
-        Employee savedItem = employeeRepository.save(item);
-        employeeRepository.deleteById(item.getId());
-        boolean exists = employeeRepository.existsById(savedItem.getId());
+        Employee savedItem = employeeElasticsearchRepository.save(item);
+        employeeElasticsearchRepository.deleteById(item.getId());
+        boolean exists = employeeElasticsearchRepository.existsById(savedItem.getId());
         assertFalse(exists);
     }
 
@@ -152,22 +144,22 @@ class EmployeeRepositoryTest {
     void shouldDeleteItems() {
         int numberOfItems = 10;
         List<Employee> items = sampleEmployeeProvider.getItems(numberOfItems);
-        Iterable<Employee> savedItems = employeeRepository.saveAll(items);
+        Iterable<Employee> savedItems = employeeElasticsearchRepository.saveAll(items);
         int numberOfItemsToDelete = 3;
-        employeeRepository.deleteAll(items.subList(0, numberOfItemsToDelete));
-        long count = employeeRepository.count();
+        employeeElasticsearchRepository.deleteAll(items.subList(0, numberOfItemsToDelete));
+        long count = employeeElasticsearchRepository.count();
         assertEquals((numberOfItems-numberOfItemsToDelete), count);
-        employeeRepository.deleteAll(savedItems);
+        employeeElasticsearchRepository.deleteAll(savedItems);
     }
 
     @Test
     void shouldDeleteAllItems() {
         int numberOfItems = 10;
         List<Employee> items = sampleEmployeeProvider.getItems(numberOfItems);
-        Iterable<Employee> savedItems = employeeRepository.saveAll(items);
+        Iterable<Employee> savedItems = employeeElasticsearchRepository.saveAll(items);
         assertNotNull(savedItems);
-        employeeRepository.deleteAll();
-        long count = employeeRepository.count();
+        employeeElasticsearchRepository.deleteAll();
+        long count = employeeElasticsearchRepository.count();
         assertEquals(0, count);
     }
 }
