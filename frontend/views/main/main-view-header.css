@@ -1,0 +1,7 @@
+#main-view-header {
+    height: var(--lumo-size-xl);
+}
+#main-view-header h1 {
+    font-size: var(--lumo-font-size-l);
+    margin: 0;
+}

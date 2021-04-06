@@ -1,0 +1,5 @@
+#main-view-user-settings {
+    color: var(--lumo-header-text-color);
+    cursor: pointer;
+    background: transparent;
+}
