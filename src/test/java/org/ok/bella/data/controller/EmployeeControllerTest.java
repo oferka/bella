@@ -1,16 +1,24 @@
 package org.ok.bella.data.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.ok.bella.Application;
 import org.ok.bella.data.repository.es.EmployeeElasticsearchRepository;
 import org.ok.bella.data.sample.SampleEmployeeProvider;
 import org.ok.bella.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.restdocs.RestDocumentationContextProvider;
+import org.springframework.restdocs.RestDocumentationExtension;
+import org.springframework.restdocs.constraints.ConstraintDescriptions;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,16 +28,17 @@ import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.ok.bella.data.controller.Paths.COUNT_PATH;
 import static org.ok.bella.data.controller.Paths.EMPLOYEE_PATH;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
-@AutoConfigureMockMvc
+@ExtendWith({ RestDocumentationExtension.class, SpringExtension.class })
+@SpringBootTest(classes = Application.class)
 class EmployeeControllerTest {
 
-    @Autowired
     private MockMvc mvc;
 
     @Autowired
@@ -37,6 +46,13 @@ class EmployeeControllerTest {
 
     @Autowired
     private SampleEmployeeProvider sampleEmployeeProvider;
+
+    @BeforeEach
+    public void setup(WebApplicationContext webApplicationContext, RestDocumentationContextProvider restDocumentation) {
+        mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
+                .apply(documentationConfiguration(restDocumentation))
+                .build();
+    }
 
     @Test
     public void shouldFindAll() throws Exception {
@@ -49,6 +65,7 @@ class EmployeeControllerTest {
                 .andDo(log())
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString(String.valueOf(numberOfItems))))
+                .andDo(document("findAll"))
                 .andReturn();
         assertNotNull(mvcResult);
         employeeElasticsearchRepository.deleteAll(savedItems);
@@ -60,12 +77,14 @@ class EmployeeControllerTest {
         List<Employee> items = sampleEmployeeProvider.getItems(numberOfItems);
         Iterable<Employee> savedItems = employeeElasticsearchRepository.saveAll(items);
         String id = items.get(0).getId();
+        ConstraintDescriptions constraintDescriptions = new ConstraintDescriptions(Employee.class);
         MvcResult mvcResult = mvc.perform(get(format("/%s/%s", EMPLOYEE_PATH, id))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(log())
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString(id)))
+                .andDo(document("findById"))
                 .andReturn();
         assertNotNull(mvcResult);
         employeeElasticsearchRepository.deleteAll(savedItems);
@@ -81,6 +100,7 @@ class EmployeeControllerTest {
                 .andDo(log())
                 .andExpect(status().isCreated())
                 .andExpect(content().string(containsString(item.getId())))
+                .andDo(document("save"))
                 .andReturn();
         assertNotNull(mvcResult);
         employeeElasticsearchRepository.delete(item);
@@ -96,6 +116,7 @@ class EmployeeControllerTest {
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(log())
                 .andExpect(status().isNoContent())
+                .andDo(document("deleteById"))
                 .andReturn();
         assertNotNull(mvcResult);
         boolean exists = employeeElasticsearchRepository.existsById(id);
@@ -113,6 +134,7 @@ class EmployeeControllerTest {
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(log())
                 .andExpect(status().isOk())
+                .andDo(document("update"))
                 .andReturn();
         assertNotNull(mvcResult);
         Optional<Employee> updated = employeeElasticsearchRepository.findById(id);
@@ -131,6 +153,7 @@ class EmployeeControllerTest {
                 .andDo(log())
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString(String.valueOf(numberOfItems))))
+                .andDo(document("count"))
                 .andReturn();
         assertNotNull(mvcResult);
         employeeElasticsearchRepository.deleteAll(savedItems);
