@@ -120,7 +120,8 @@ class EmployeeControllerTest {
                         document("save",
                                 preprocessRequest(prettyPrint()),
                                 preprocessResponse(prettyPrint()),
-                                requestFields(fieldWithPath("id").description("The id of the employee"),
+                                requestFields(
+                                        fieldWithPath("id").description("The id of the employee"),
                                         fieldWithPath("name").description("The name of the employee")
                                 )
                         )
