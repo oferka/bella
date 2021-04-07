@@ -13,18 +13,17 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 import java.util.List;
+import java.util.Optional;
 
 import static java.lang.String.format;
 import static org.hamcrest.Matchers.containsString;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.ok.bella.data.controller.Paths.COUNT_PATH;
 import static org.ok.bella.data.controller.Paths.EMPLOYEE_PATH;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -38,22 +37,6 @@ class EmployeeControllerTest {
 
     @Autowired
     private SampleEmployeeProvider sampleEmployeeProvider;
-
-    @Test
-    public void shouldCount() throws Exception {
-        int numberOfItems = 10;
-        List<Employee> items = sampleEmployeeProvider.getItems(numberOfItems);
-        Iterable<Employee> savedItems = employeeElasticsearchRepository.saveAll(items);
-        MvcResult mvcResult = mvc.perform(get(format("/%s/%s", EMPLOYEE_PATH, COUNT_PATH))
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
-                .andDo(log())
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString(String.valueOf(numberOfItems))))
-                .andReturn();
-        assertNotNull(mvcResult);
-        employeeElasticsearchRepository.deleteAll(savedItems);
-    }
 
     @Test
     public void shouldFindAll() throws Exception {
@@ -117,5 +100,39 @@ class EmployeeControllerTest {
         assertNotNull(mvcResult);
         boolean exists = employeeElasticsearchRepository.existsById(id);
         assertFalse(exists);
+    }
+
+    @Test
+    public void shouldUpdate() throws Exception {
+        Employee item = sampleEmployeeProvider.getItem();
+        Employee saved = employeeElasticsearchRepository.save(item);
+        String id = saved.getId();
+        MvcResult mvcResult = mvc.perform(put(format("/%s/%s", EMPLOYEE_PATH, id))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(new ObjectMapper().writeValueAsString(item))
+                .accept(MediaType.APPLICATION_JSON))
+                .andDo(log())
+                .andExpect(status().isOk())
+                .andReturn();
+        assertNotNull(mvcResult);
+        Optional<Employee> updated = employeeElasticsearchRepository.findById(id);
+        assertTrue(updated.isPresent());
+        employeeElasticsearchRepository.deleteById(id);
+    }
+
+    @Test
+    public void shouldCount() throws Exception {
+        int numberOfItems = 10;
+        List<Employee> items = sampleEmployeeProvider.getItems(numberOfItems);
+        Iterable<Employee> savedItems = employeeElasticsearchRepository.saveAll(items);
+        MvcResult mvcResult = mvc.perform(get(format("/%s/%s", EMPLOYEE_PATH, COUNT_PATH))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andDo(log())
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString(String.valueOf(numberOfItems))))
+                .andReturn();
+        assertNotNull(mvcResult);
+        employeeElasticsearchRepository.deleteAll(savedItems);
     }
 }
