@@ -20,3 +20,11 @@ logging:
     org.elasticsearch.client: TRACE
     org.apache.http: INFO
     org.ok.milki: INFO
+
+springdoc:
+  version: @springdoc.version@
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
