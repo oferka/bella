@@ -5,6 +5,7 @@ import org.ok.bella.model.Employee;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EmployeeServiceElasticsearch implements EmployeeService {
@@ -18,6 +19,26 @@ public class EmployeeServiceElasticsearch implements EmployeeService {
     @Override
     public Iterable<Employee> findAll() {
         return employeeElasticsearchRepository.findAll();
+    }
+
+    @Override
+    public Optional<Employee> findById(String id) {
+        return employeeElasticsearchRepository.findById(id);
+    }
+
+    @Override
+    public Employee save(Employee employee) {
+        return employeeElasticsearchRepository.save(employee);
+    }
+
+    @Override
+    public void deleteById(String id) {
+        employeeElasticsearchRepository.findById(id);
+    }
+
+    @Override
+    public boolean existsById(String id) {
+        return employeeElasticsearchRepository.existsById(id);
     }
 
     @Override
