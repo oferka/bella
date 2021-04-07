@@ -27,11 +27,11 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 @RestController
 @RequestMapping(path = EMPLOYEE_PATH)
 @Tag(name = "employee", description = "the employee API")
-public class EmployeeController extends AbstractController {
+public class EmployeeControllerExceptionHandler {
 
     private final EmployeeService employeeService;
 
-    public EmployeeController(EmployeeService employeeService) {
+    public EmployeeControllerExceptionHandler(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
 
@@ -49,6 +49,7 @@ public class EmployeeController extends AbstractController {
     @Operation(summary = "Find an employee by id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Employee successfully found by id", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = Employee.class))}),
+            @ApiResponse(responseCode = "404", description = "Employee with specified id was not found", content = @Content),
             @ApiResponse(responseCode = "400", description = "Failed to find employee by id", content = @Content) })
     @GetMapping(value = "{id}")
     public ResponseEntity<Employee> findById(@Parameter(description = "The id of the employee to be found") @PathVariable("id") String id) {
@@ -63,7 +64,7 @@ public class EmployeeController extends AbstractController {
     @PostMapping
     public ResponseEntity<Employee> save(@Parameter(description = "Employee to be saved") @RequestBody @Valid Employee employee) {
         HttpHeaders httpHeaders = new HttpHeaders();
-        URI location = linkTo(EmployeeController.class).slash(employee.getId()).toUri();
+        URI location = linkTo(EmployeeControllerExceptionHandler.class).slash(employee.getId()).toUri();
         httpHeaders.setLocation(location);
         Employee saved = employeeService.save(employee);
         return new ResponseEntity<>(saved, httpHeaders, HttpStatus.CREATED);
