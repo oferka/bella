@@ -29,7 +29,7 @@ class EmployeeServiceTest {
         int numberOfItems = 10;
         List<Employee> items = sampleEmployeeProvider.getItems(numberOfItems);
         Iterable<Employee> savedItems = employeeElasticsearchRepository.saveAll(items);
-        Iterable<Employee> foundItems = employeeService.findAll();
+        List<Employee> foundItems = employeeService.findAll();
         assertNotNull(foundItems);
         employeeElasticsearchRepository.deleteAll(savedItems);
     }

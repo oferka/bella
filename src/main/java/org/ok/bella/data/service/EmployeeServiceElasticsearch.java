@@ -4,7 +4,10 @@ import org.ok.bella.data.repository.es.EmployeeElasticsearchRepository;
 import org.ok.bella.model.Employee;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 public class EmployeeServiceElasticsearch implements EmployeeService {
@@ -16,8 +19,11 @@ public class EmployeeServiceElasticsearch implements EmployeeService {
     }
 
     @Override
-    public Iterable<Employee> findAll() {
-        return employeeElasticsearchRepository.findAll();
+    public List<Employee> findAll() {
+        Iterable<Employee> employees = employeeElasticsearchRepository.findAll();
+        return StreamSupport
+                .stream(employees.spliterator(), false)
+                .collect(Collectors.toList());
     }
 
     @Override

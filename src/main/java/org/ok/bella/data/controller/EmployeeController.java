@@ -1,5 +1,11 @@
 package org.ok.bella.data.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.ok.bella.data.service.EmployeeService;
 import org.ok.bella.model.Employee;
@@ -10,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 
 import static org.ok.bella.data.controller.Paths.COUNT_PATH;
@@ -27,9 +34,14 @@ public class EmployeeController extends AbstractController {
         this.employeeService = employeeService;
     }
 
+    @Operation(summary = "Find all employees")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "employees found", content = { @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = Employee.class)))}),
+            @ApiResponse(responseCode = "400", description = "Failed to find employees", content = @Content) }
+            )
     @GetMapping
-    public ResponseEntity<Iterable<Employee>> findAll() {
-        Iterable<Employee> allItems = employeeService.findAll();
+    public ResponseEntity<List<Employee>> findAll() {
+        List<Employee> allItems = employeeService.findAll();
         return ResponseEntity.ok(allItems);
     }
 
