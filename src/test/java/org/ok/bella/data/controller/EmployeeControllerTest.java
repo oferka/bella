@@ -30,10 +30,16 @@ import static org.ok.bella.data.controller.Paths.COUNT_PATH;
 import static org.ok.bella.data.controller.Paths.EMPLOYEE_PATH;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.util.StringUtils.collectionToDelimitedString;
 
 @ExtendWith({ RestDocumentationExtension.class, SpringExtension.class })
 @SpringBootTest(classes = Application.class)
@@ -78,13 +84,24 @@ class EmployeeControllerTest {
         Iterable<Employee> savedItems = employeeElasticsearchRepository.saveAll(items);
         String id = items.get(0).getId();
         ConstraintDescriptions constraintDescriptions = new ConstraintDescriptions(Employee.class);
-        MvcResult mvcResult = mvc.perform(get(format("/%s/%s", EMPLOYEE_PATH, id))
+        MvcResult mvcResult = mvc.perform(get(format("/%s/{id}", EMPLOYEE_PATH), id)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(log())
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString(id)))
-                .andDo(document("findById"))
+                .andDo(
+                        document(
+                                "findById",
+                                preprocessRequest(prettyPrint()),
+                                preprocessResponse(prettyPrint()),
+                                pathParameters(parameterWithName("id").description("id of employee to be found")),
+                                responseFields(
+                                    fieldWithPath("id").description("The id of the employee" + collectionToDelimitedString(constraintDescriptions.descriptionsForProperty("id"), ". ")),
+                                    fieldWithPath("name").description("The name of the employee")
+                                )
+                        )
+                )
                 .andReturn();
         assertNotNull(mvcResult);
         employeeElasticsearchRepository.deleteAll(savedItems);
@@ -111,12 +128,12 @@ class EmployeeControllerTest {
         Employee item = sampleEmployeeProvider.getItem();
         Employee saved = employeeElasticsearchRepository.save(item);
         String id = saved.getId();
-        MvcResult mvcResult = mvc.perform(delete(format("/%s/%s", EMPLOYEE_PATH, id))
+        MvcResult mvcResult = mvc.perform(delete(format("/%s/{id}", EMPLOYEE_PATH), id)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(log())
                 .andExpect(status().isNoContent())
-                .andDo(document("deleteById"))
+                .andDo(document("deleteById", pathParameters(parameterWithName("id").description("The id of the employee to delete"))))
                 .andReturn();
         assertNotNull(mvcResult);
         boolean exists = employeeElasticsearchRepository.existsById(id);
