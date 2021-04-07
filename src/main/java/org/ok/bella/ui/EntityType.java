@@ -13,7 +13,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import static com.vaadin.flow.component.icon.VaadinIcon.*;
+import static com.vaadin.flow.component.icon.VaadinIcon.HANDS_UP;
 import static org.ok.bella.ui.employees.EmployeeView.EMPLOYEE_ID_PREFIX;
 import static org.ok.bella.ui.employees.EmployeeView.EMPLOYEE_VIEW_NAME;
 import static org.ok.bella.ui.employees.EmployeesView.*;

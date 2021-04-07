@@ -11,7 +11,7 @@ import org.ok.bella.ui.home.HomeView;
 
 import java.util.Optional;
 
-import static org.ok.bella.ui.EntityType.*;
+import static org.ok.bella.ui.EntityType.EMPLOYEE;
 import static org.ok.bella.ui.Styles.CSS_FILE_EXTENSION;
 import static org.ok.bella.ui.Styles.VIEWS_FOLDER;
 import static org.ok.bella.ui.main.MainView.VIEW_ID_PREFIX;

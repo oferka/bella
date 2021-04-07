@@ -8,9 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.awt.print.Book;
 import java.net.URI;
-import java.util.List;
 import java.util.Optional;
 
 import static org.ok.bella.data.controller.Paths.COUNT_PATH;
