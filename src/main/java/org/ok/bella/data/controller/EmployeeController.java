@@ -1,6 +1,7 @@
 package org.ok.bella.data.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -36,7 +37,7 @@ public class EmployeeController extends AbstractController {
 
     @Operation(summary = "Find all employees")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "employees found", content = { @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = Employee.class)))}),
+            @ApiResponse(responseCode = "200", description = "Employees found", content = { @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = Employee.class)))}),
             @ApiResponse(responseCode = "400", description = "Failed to find employees", content = @Content) }
             )
     @GetMapping
@@ -45,8 +46,12 @@ public class EmployeeController extends AbstractController {
         return ResponseEntity.ok(allItems);
     }
 
+    @Operation(summary = "Find an employee by id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Employee found by id", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = Employee.class))}),
+            @ApiResponse(responseCode = "400", description = "Failed to find employee by id", content = @Content) })
     @GetMapping(value = "{id}")
-    public ResponseEntity<Employee> findById(@PathVariable("id") String id) {
+    public ResponseEntity<Employee> findById(@Parameter(description = "The id of the employee to be found") @PathVariable("id") String id) {
         Optional<Employee> employee = employeeService.findById(id);
         return employee.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
