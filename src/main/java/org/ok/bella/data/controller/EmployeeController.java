@@ -1,5 +1,6 @@
 package org.ok.bella.data.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.ok.bella.data.service.EmployeeService;
 import org.ok.bella.model.Employee;
 import org.springframework.http.HttpHeaders;
@@ -17,6 +18,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @RestController
 @RequestMapping(path = EMPLOYEE_PATH)
+@Tag(name = "employee", description = "the employee API")
 public class EmployeeController extends AbstractController {
 
     private final EmployeeService employeeService;
