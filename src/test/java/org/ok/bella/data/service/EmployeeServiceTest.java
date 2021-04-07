@@ -1,26 +1,16 @@
 package org.ok.bella.data.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.ok.bella.data.repository.es.EmployeeElasticsearchRepository;
 import org.ok.bella.data.sample.SampleEmployeeProvider;
 import org.ok.bella.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MvcResult;
 
 import java.util.List;
 import java.util.Optional;
 
-import static java.lang.String.format;
-import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.ok.bella.data.controller.Paths.EMPLOYEE_PATH;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 class EmployeeServiceTest {
@@ -62,6 +52,16 @@ class EmployeeServiceTest {
         Employee saved = employeeService.save(item);
         assertEquals(saved, item);
         employeeElasticsearchRepository.delete(item);
+    }
+
+    @Test
+    public void shouldDeleteById() {
+        Employee item = sampleEmployeeProvider.getItem();
+        Employee saved = employeeElasticsearchRepository.save(item);
+        String id = saved.getId();
+        employeeService.deleteById(id);
+        boolean exists = employeeElasticsearchRepository.existsById(id);
+        assertFalse(exists);
     }
 
     @Test
