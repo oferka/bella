@@ -16,10 +16,10 @@ import java.util.List;
 
 import static java.lang.String.format;
 import static org.hamcrest.Matchers.containsString;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.ok.bella.data.controller.Paths.COUNT_PATH;
 import static org.ok.bella.data.controller.Paths.EMPLOYEE_PATH;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -101,5 +101,21 @@ class EmployeeControllerTest {
                 .andReturn();
         assertNotNull(mvcResult);
         employeeElasticsearchRepository.delete(item);
+    }
+
+    @Test
+    public void shouldDeleteById() throws Exception {
+        Employee item = sampleEmployeeProvider.getItem();
+        Employee saved = employeeElasticsearchRepository.save(item);
+        String id = saved.getId();
+        MvcResult mvcResult = mvc.perform(delete(format("/%s/%s", EMPLOYEE_PATH, id))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andDo(log())
+                .andExpect(status().isNoContent())
+                .andReturn();
+        assertNotNull(mvcResult);
+        boolean exists = employeeElasticsearchRepository.existsById(id);
+        assertFalse(exists);
     }
 }

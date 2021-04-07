@@ -33,7 +33,7 @@ public class EmployeeServiceElasticsearch implements EmployeeService {
 
     @Override
     public void deleteById(String id) {
-        employeeElasticsearchRepository.findById(id);
+        employeeElasticsearchRepository.deleteById(id);
     }
 
     @Override
