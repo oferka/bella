@@ -141,7 +141,12 @@ class EmployeeControllerTest {
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(log())
                 .andExpect(status().isNoContent())
-                .andDo(document("deleteById", pathParameters(parameterWithName("id").description("The id of the employee to delete"))))
+                .andDo(
+                        document(
+                                "deleteById",
+                                pathParameters(parameterWithName("id").description("The id of the employee to delete"))
+                        )
+                )
                 .andReturn();
         assertNotNull(mvcResult);
         boolean exists = employeeElasticsearchRepository.existsById(id);
@@ -153,13 +158,27 @@ class EmployeeControllerTest {
         Employee item = sampleEmployeeProvider.getItem();
         Employee saved = employeeElasticsearchRepository.save(item);
         String id = saved.getId();
-        MvcResult mvcResult = mvc.perform(put(format("/%s/%s", EMPLOYEE_PATH, id))
+        ConstraintDescriptions constraintDescriptions = new ConstraintDescriptions(Employee.class);
+        MvcResult mvcResult = mvc.perform(put(format("/%s/{id}", EMPLOYEE_PATH), id)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsString(item))
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(log())
                 .andExpect(status().isOk())
-                .andDo(document("update"))
+                .andDo(
+                        document(
+                                "update",
+                                pathParameters(parameterWithName("id").description("The id of the employee to update")),
+                                requestFields(
+                                        fieldWithPath("id").description("The id of the employee"),
+                                        fieldWithPath("name").description("The name of the employee")
+                                ),
+                                responseFields(
+                                        fieldWithPath("id").description("The id of the updated employee" + collectionToDelimitedString(constraintDescriptions.descriptionsForProperty("id"), ". ")),
+                                        fieldWithPath("name").description("The title of the updated employee")
+                                )
+                        )
+                )
                 .andReturn();
         assertNotNull(mvcResult);
         Optional<Employee> updated = employeeElasticsearchRepository.findById(id);

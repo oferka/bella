@@ -27,11 +27,11 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 @RestController
 @RequestMapping(path = EMPLOYEE_PATH)
 @Tag(name = "employee", description = "the employee API")
-public class EmployeeControllerExceptionHandler {
+public class EmployeeController {
 
     private final EmployeeService employeeService;
 
-    public EmployeeControllerExceptionHandler(EmployeeService employeeService) {
+    public EmployeeController(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
 
@@ -64,7 +64,7 @@ public class EmployeeControllerExceptionHandler {
     @PostMapping
     public ResponseEntity<Employee> save(@Parameter(description = "Employee to be saved") @RequestBody @Valid Employee employee) {
         HttpHeaders httpHeaders = new HttpHeaders();
-        URI location = linkTo(EmployeeControllerExceptionHandler.class).slash(employee.getId()).toUri();
+        URI location = linkTo(EmployeeController.class).slash(employee.getId()).toUri();
         httpHeaders.setLocation(location);
         Employee saved = employeeService.save(employee);
         return new ResponseEntity<>(saved, httpHeaders, HttpStatus.CREATED);
@@ -98,7 +98,7 @@ public class EmployeeControllerExceptionHandler {
     @Operation(summary = "Return the number of existing employees")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Employee counted successfully", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = Long.class))}),
-            @ApiResponse(responseCode = "404", description = "Failed to count employees", content = @Content) })
+            @ApiResponse(responseCode = "400", description = "Failed to count employees", content = @Content) })
     @GetMapping(path = COUNT_PATH)
     public ResponseEntity<Long> count() {
         long count = employeeService.count();
