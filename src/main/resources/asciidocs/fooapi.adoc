@@ -67,86 +67,86 @@ not create URIs themselves, instead they should use the above-described links to
 [[resources]]
 = Resources
 
-[[resources-FOO]]
-== FOO REST Service
+[[resources-Employee]]
+== Employee REST Service
 
-The FOO provides the entry point into the service.
+The Employee provides the entry point into the service.
 
-[[resources-foo-get]]
-=== Accessing the foo GET
+[[resources-employee-get]]
+=== Accessing the employee GET
 
-A `GET` request is used to access the foo read.
+A `GET` request is used to access the employee read.
 
 ==== Request structure
 
-include::{snippets}/getAFoo/http-request.adoc[]
+include::{snippets}/findById/http-request.adoc[]
 
 ==== Path Parameters
-include::{snippets}/getAFoo/path-parameters.adoc[]
+include::{snippets}/findById/path-parameters.adoc[]
 
 ==== Example response
 
-include::{snippets}/getAFoo/http-response.adoc[]
+include::{snippets}/findById/http-response.adoc[]
 
 ==== CURL request
 
-include::{snippets}/getAFoo/curl-request.adoc[]
+include::{snippets}/findById/curl-request.adoc[]
 
-[[resources-foo-post]]
-=== Accessing the foo POST
+[[resources-employee-post]]
+=== Accessing the employee POST
 
-A `POST` request is used to access the foo create.
+A `POST` request is used to access the employee create.
 
 ==== Request structure
 
-include::{snippets}/createFoo/http-request.adoc[]
+include::{snippets}/save/http-request.adoc[]
 
 ==== Example response
 
-include::{snippets}/createFoo/http-response.adoc[]
+include::{snippets}/save/http-response.adoc[]
 
 ==== CURL request
 
-include::{snippets}/createFoo/curl-request.adoc[]
+include::{snippets}/save/curl-request.adoc[]
 
-[[resources-foo-delete]]
-=== Accessing the foo DELETE
+[[resources-employee-delete]]
+=== Accessing the employee DELETE
 
-A `DELETE` request is used to access the foo delete.
+A `DELETE` request is used to access the employee delete.
 
 ==== Request structure
 
-include::{snippets}/deleteFoo/http-request.adoc[]
+include::{snippets}/deleteById/http-request.adoc[]
 
 ==== Path Parameters
-include::{snippets}/deleteFoo/path-parameters.adoc[]
+include::{snippets}/deleteById/path-parameters.adoc[]
 
 ==== Example response
 
-include::{snippets}/deleteFoo/http-response.adoc[]
+include::{snippets}/deleteById/http-response.adoc[]
 
 ==== CURL request
 
-include::{snippets}/deleteFoo/curl-request.adoc[]
+include::{snippets}/deleteById/curl-request.adoc[]
 
-[[resources-foo-put]]
-=== Accessing the foo PUT
+[[resources-employee-put]]
+=== Accessing the employee PUT
 
-A `PUT` request is used to access the foo update.
+A `PUT` request is used to access the employee update.
 
 ==== Request structure
 
-include::{snippets}/updateFoo/http-request.adoc[]
+include::{snippets}/update/http-request.adoc[]
 
 ==== Path Parameters
-include::{snippets}/updateFoo/path-parameters.adoc[]
+include::{snippets}/update/path-parameters.adoc[]
 
 ==== Example response
 
-include::{snippets}/updateFoo/http-response.adoc[]
+include::{snippets}/update/http-response.adoc[]
 
 ==== CURL request
 
-include::{snippets}/updateFoo/curl-request.adoc[]
+include::{snippets}/update/curl-request.adoc[]
 
 

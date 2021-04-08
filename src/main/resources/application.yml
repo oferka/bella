@@ -25,5 +25,7 @@ springdoc:
   version: @springdoc.version@
   api-docs:
     path: /api-docs
+    enabled: true
   swagger-ui:
     path: /swagger-ui.html
+    enabled: true
