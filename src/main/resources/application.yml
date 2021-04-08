@@ -11,6 +11,13 @@ management:
       exposure:
         include: "*"
 
+## Configuring info endpoint
+info:
+  app:
+    name: bella
+    description: This is the bella application
+    version: 0.0.1
+
 logging:
   level:
     root: INFO
