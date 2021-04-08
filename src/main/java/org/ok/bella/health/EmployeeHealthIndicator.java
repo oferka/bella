@@ -18,8 +18,9 @@ public class EmployeeHealthIndicator implements HealthIndicator {
     public Health health() {
         Health.Builder status;
         try {
-            employeeElasticsearchRepository.count();
+            long count = employeeElasticsearchRepository.count();
             status = Health.up();
+            status.withDetail("count", count);
         }
         catch (Exception e) {
             status = Health.down();
