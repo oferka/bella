@@ -21,6 +21,6 @@ public class EmployeeInfoContributor implements InfoContributor {
     public void contribute(Info.Builder builder) {
         Map<String, Long> employeeDetails = new HashMap<>();
         employeeDetails.put("count", employeeElasticsearchRepository.count());
-        builder.withDetail("employees", employeeDetails);
+        builder.withDetail("employee", employeeDetails);
     }
 }
