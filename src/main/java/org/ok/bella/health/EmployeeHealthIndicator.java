@@ -24,6 +24,7 @@ public class EmployeeHealthIndicator implements HealthIndicator {
         }
         catch (Exception e) {
             status = Health.down();
+            status.withException(e);
         }
         return status.build();
     }
