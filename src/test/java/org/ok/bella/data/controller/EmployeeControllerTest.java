@@ -70,7 +70,11 @@ class EmployeeControllerTest {
                 .andDo(log())
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString(String.valueOf(numberOfItems))))
-                .andDo(document("findAll"))
+                .andDo(
+                        document(
+                                "findAll"
+                        )
+                )
                 .andReturn();
         assertNotNull(mvcResult);
         employeeElasticsearchRepository.deleteAll(savedItems);

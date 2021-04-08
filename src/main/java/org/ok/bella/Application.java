@@ -25,7 +25,11 @@ public class Application extends SpringBootServletInitializer {
                         .version(appVersion)
                         .description("Bella server created using springdocs - a library for OpenAPI 3 with spring boot.")
                         .termsOfService("http://swagger.io/terms/")
-                        .license(new License().name("Apache 2.0").url("http://springdoc.org"))
+                        .license(
+                                new License()
+                                        .name("Apache 2.0")
+                                        .url("http://springdoc.org")
+                        )
         );
     }
 }
