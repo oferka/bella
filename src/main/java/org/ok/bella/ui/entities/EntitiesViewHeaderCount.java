@@ -14,14 +14,14 @@ public class EntitiesViewHeaderCount extends H2 {
 
     public static final String VIEW_HEADER_COUNT_ID_SUFFIX = "-view-header-count";
 
-    public EntitiesViewHeaderCount(String idPrefix, int count) {
+    public EntitiesViewHeaderCount(String idPrefix, long count) {
         setId(idPrefix + VIEW_HEADER_COUNT_ID_SUFFIX);
         addClassName(ENTITIES_ID_PREFIX + VIEW_HEADER_COUNT_ID_SUFFIX);
 
         setTitleText(count);
     }
 
-    public void setTitleText(int count) {
+    public void setTitleText(long count) {
         setText(format("(%s)", count));
     }
 }

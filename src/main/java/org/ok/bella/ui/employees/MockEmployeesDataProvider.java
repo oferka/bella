@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 public class MockEmployeesDataProvider implements EmployeesDataProvider {
 
     @Override
-    public int count() {
+    public long count() {
         return 30;
     }
 }

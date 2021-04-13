@@ -18,7 +18,7 @@ public class EntitiesViewHeader extends HorizontalLayout {
     private final EntitiesViewHeaderInfo entitiesViewHeaderInfo;
     private final EntitiesViewHeaderActions entitiesViewHeaderActions;
 
-    public EntitiesViewHeader(String idPrefix, String titleText, int count, String descriptionText, String entityName, VaadinIcon vaadinIcon) {
+    public EntitiesViewHeader(String idPrefix, String titleText, long count, String descriptionText, String entityName, VaadinIcon vaadinIcon) {
         setId(idPrefix + VIEW_HEADER_ID_SUFFIX);
         addClassName(ENTITIES_ID_PREFIX + VIEW_HEADER_ID_SUFFIX);
 

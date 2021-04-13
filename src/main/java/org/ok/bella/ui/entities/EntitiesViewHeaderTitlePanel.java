@@ -19,7 +19,7 @@ public class EntitiesViewHeaderTitlePanel extends HorizontalLayout {
     private final EntitiesViewHeaderType entitiesViewHeaderType;
     private final EntitiesViewHeaderCount entitiesViewHeaderCount;
 
-    public EntitiesViewHeaderTitlePanel(String idPrefix, String titleText, int count, VaadinIcon vaadinIcon) {
+    public EntitiesViewHeaderTitlePanel(String idPrefix, String titleText, long count, VaadinIcon vaadinIcon) {
         setId(idPrefix + VIEW_HEADER_TITLE_PANEL_ID_SUFFIX);
         addClassName(ENTITIES_ID_PREFIX + VIEW_HEADER_TITLE_PANEL_ID_SUFFIX);
 
