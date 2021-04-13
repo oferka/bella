@@ -37,6 +37,11 @@ public class EmployeeServiceElasticsearch implements EmployeeService {
     }
 
     @Override
+    public Iterable<Employee> save(Iterable<Employee> employees) {
+        return employeeElasticsearchRepository.saveAll(employees);
+    }
+
+    @Override
     public void deleteById(String id) {
         employeeElasticsearchRepository.deleteById(id);
     }

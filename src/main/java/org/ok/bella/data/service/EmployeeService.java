@@ -15,6 +15,8 @@ public interface EmployeeService {
 
     Employee save(Employee employee);
 
+    Iterable<Employee> save(Iterable<Employee> employees);
+
     void deleteById(String id);
 
     boolean existsById(String id);
