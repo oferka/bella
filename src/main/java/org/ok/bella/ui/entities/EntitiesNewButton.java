@@ -16,14 +16,14 @@ import static org.ok.bella.ui.entities.EntitiesNewButton.NEW_BUTTON_ID_SUFFIX;
 import static org.ok.bella.ui.entities.EntitiesView.ENTITIES_ID_PREFIX;
 
 @CssImport(VIEWS_FOLDER + ENTITIES_ID_PREFIX + "/" + ENTITIES_ID_PREFIX + NEW_BUTTON_ID_SUFFIX + CSS_FILE_EXTENSION)
-public class EntitiesNewButton extends Button {
+public class EntitiesNewButton<T extends EntitiesDataProvider> extends Button {
 
     public static final String NEW_BUTTON_ID_SUFFIX = "-new-button";
 
     private final String idPrefix;
     private final String entityName;
 
-    public EntitiesNewButton(String idPrefix, String entityName) {
+    public EntitiesNewButton(String idPrefix, String entityName, T entitiesDataProvider) {
         this.idPrefix = idPrefix;
         this.entityName = entityName;
         setId(idPrefix + NEW_BUTTON_ID_SUFFIX);

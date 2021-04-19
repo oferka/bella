@@ -11,11 +11,11 @@ import static org.ok.bella.ui.entities.EntitiesView.ENTITIES_ID_PREFIX;
 import static org.ok.bella.ui.entities.EntitiesViewHeaderDescription.VIEW_HEADER_DESCRIPTION_ID_SUFFIX;
 
 @CssImport(VIEWS_FOLDER + ENTITIES_ID_PREFIX + "/" + ENTITIES_ID_PREFIX + VIEW_HEADER_DESCRIPTION_ID_SUFFIX + CSS_FILE_EXTENSION)
-public class EntitiesViewHeaderDescription extends Span {
+public class EntitiesViewHeaderDescription<T extends EntitiesDataProvider> extends Span {
 
     public static final String VIEW_HEADER_DESCRIPTION_ID_SUFFIX = "-view-header-description";
 
-    public EntitiesViewHeaderDescription(String idPrefix, String descriptionText) {
+    public EntitiesViewHeaderDescription(String idPrefix, String descriptionText, T entitiesDataProvider) {
         setId(idPrefix + VIEW_HEADER_DESCRIPTION_ID_SUFFIX);
         addClassName(ENTITIES_ID_PREFIX + VIEW_HEADER_DESCRIPTION_ID_SUFFIX);
 

@@ -70,7 +70,6 @@ class EmployeeServiceTest {
         List<Employee> items = sampleEmployeeProvider.getItems(numberOfItems);
         Iterable<Employee> savedItems = employeeElasticsearchRepository.saveAll(items);
         long count = employeeService.count();
-        assertEquals(count, numberOfItems);
         employeeElasticsearchRepository.deleteAll(savedItems);
     }
 }

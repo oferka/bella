@@ -16,8 +16,8 @@ public abstract class EntitiesView<T extends EntitiesDataProvider> extends Verti
     public static final String ENTITIES_ID_PREFIX = "entities";
     public static final String VIEW_ID_SUFFIX = "-view";
 
-    private final EntitiesViewHeader entitiesViewHeader;
-    private final EntitiesViewBody entitiesViewBody;
+    private final EntitiesViewHeader<T> entitiesViewHeader;
+    private final EntitiesViewBody<T> entitiesViewBody;
 
     public EntitiesView(T entitiesDataProvider) {
         setId(getEntityType().getEntitiesIdPrefix() + VIEW_ID_SUFFIX);
@@ -26,20 +26,20 @@ public abstract class EntitiesView<T extends EntitiesDataProvider> extends Verti
         setHeightFull();
         setAlignItems(FlexComponent.Alignment.CENTER);
 
-        entitiesViewHeader = new EntitiesViewHeader(
+        entitiesViewHeader = new EntitiesViewHeader<>(
                 getEntityType().getEntitiesIdPrefix(),
                 getEntityType().getEntitiesViewName(),
-                entitiesDataProvider.count(),
+                entitiesDataProvider,
                 getEntityType().getEntitiesViewDescription(),
                 getEntityType().getEntityName(),
                 getEntityType().getEntitiesViewIcon()
         );
         add(entitiesViewHeader);
 
-        entitiesViewBody = getViewBody();
+        entitiesViewBody = getViewBody(entitiesDataProvider);
         add(entitiesViewBody);
     }
 
     protected abstract EntityType getEntityType();
-    protected abstract EntitiesViewBody getViewBody();
+    protected abstract EntitiesViewBody<T> getViewBody(T entitiesDataProvider);
 }

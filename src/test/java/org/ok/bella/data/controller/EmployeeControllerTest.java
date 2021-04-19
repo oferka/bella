@@ -200,7 +200,6 @@ class EmployeeControllerTest {
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(log())
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString(String.valueOf(numberOfItems))))
                 .andDo(document("count"))
                 .andReturn();
         assertNotNull(mvcResult);

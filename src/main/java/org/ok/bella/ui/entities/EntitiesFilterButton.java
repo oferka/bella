@@ -15,13 +15,13 @@ import static org.ok.bella.ui.entities.EntitiesFilterButton.FILTER_BUTTON_ID_SUF
 import static org.ok.bella.ui.entities.EntitiesView.ENTITIES_ID_PREFIX;
 
 @CssImport(VIEWS_FOLDER + ENTITIES_ID_PREFIX + "/" + ENTITIES_ID_PREFIX + FILTER_BUTTON_ID_SUFFIX + CSS_FILE_EXTENSION)
-public class EntitiesFilterButton extends Button {
+public class EntitiesFilterButton<T extends EntitiesDataProvider> extends Button {
 
     public static final String FILTER_BUTTON_ID_SUFFIX = "-filter-button";
 
     private final String idPrefix;
 
-    public EntitiesFilterButton(String idPrefix) {
+    public EntitiesFilterButton(String idPrefix, T entitiesDataProvider) {
         this.idPrefix = idPrefix;
         setId(idPrefix + FILTER_BUTTON_ID_SUFFIX);
         addClassName(ENTITIES_ID_PREFIX + FILTER_BUTTON_ID_SUFFIX);

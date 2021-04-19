@@ -10,11 +10,11 @@ import static org.ok.bella.ui.entities.EntitiesView.ENTITIES_ID_PREFIX;
 import static org.ok.bella.ui.entities.EntitiesViewHeaderIcon.VIEW_HEADER_ICON_ID_SUFFIX;
 
 @CssImport(VIEWS_FOLDER + ENTITIES_ID_PREFIX + "/" + ENTITIES_ID_PREFIX + VIEW_HEADER_ICON_ID_SUFFIX + CSS_FILE_EXTENSION)
-public class EntitiesViewHeaderIcon extends Icon {
+public class EntitiesViewHeaderIcon<T extends EntitiesDataProvider> extends Icon {
 
     public static final String VIEW_HEADER_ICON_ID_SUFFIX = "-view-header-icon";
 
-    public EntitiesViewHeaderIcon(String idPrefix, VaadinIcon vaadinIcon) {
+    public EntitiesViewHeaderIcon(String idPrefix, VaadinIcon vaadinIcon, T entitiesDataProvider) {
         super(vaadinIcon);
         setSize("60px");
         setId(idPrefix + VIEW_HEADER_ICON_ID_SUFFIX);

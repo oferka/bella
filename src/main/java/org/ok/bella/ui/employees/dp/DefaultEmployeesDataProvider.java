@@ -1,9 +1,12 @@
-package org.ok.bella.ui.employees;
+package org.ok.bella.ui.employees.dp;
 
 import lombok.extern.slf4j.Slf4j;
 import org.ok.bella.data.service.EmployeeService;
+import org.ok.bella.model.Employee;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @Primary
@@ -19,5 +22,10 @@ public class DefaultEmployeesDataProvider implements EmployeesDataProvider {
     @Override
     public long count() {
         return employeeService.count();
+    }
+
+    @Override
+    public List<Employee> getItems() {
+        return employeeService.findAll();
     }
 }

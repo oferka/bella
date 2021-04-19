@@ -20,7 +20,7 @@ public class DefaultSampleEmployeeService implements SampleEmployeeService {
 
     @Override
     public Iterable<Employee> load() {
-        List<Employee> employees = sampleEmployeeProvider.getItems(12);
+        List<Employee> employees = sampleEmployeeProvider.getItems(100);
         return employeeService.save(employees);
     }
 }

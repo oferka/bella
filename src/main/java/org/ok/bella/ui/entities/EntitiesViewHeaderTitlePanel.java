@@ -11,21 +11,21 @@ import static org.ok.bella.ui.entities.EntitiesView.ENTITIES_ID_PREFIX;
 import static org.ok.bella.ui.entities.EntitiesViewHeaderTitlePanel.VIEW_HEADER_TITLE_PANEL_ID_SUFFIX;
 
 @CssImport(VIEWS_FOLDER + ENTITIES_ID_PREFIX + "/" + ENTITIES_ID_PREFIX + VIEW_HEADER_TITLE_PANEL_ID_SUFFIX + CSS_FILE_EXTENSION)
-public class EntitiesViewHeaderTitlePanel extends HorizontalLayout {
+public class EntitiesViewHeaderTitlePanel<T extends EntitiesDataProvider> extends HorizontalLayout {
 
     public static final String VIEW_HEADER_TITLE_PANEL_ID_SUFFIX = "-view-header-title-panel";
 
-    private final EntitiesViewHeaderIcon entitiesViewHeaderIcon;
-    private final EntitiesViewHeaderType entitiesViewHeaderType;
-    private final EntitiesViewHeaderCount entitiesViewHeaderCount;
+    private final EntitiesViewHeaderIcon<T> entitiesViewHeaderIcon;
+    private final EntitiesViewHeaderType<T> entitiesViewHeaderType;
+    private final EntitiesViewHeaderCount<T> entitiesViewHeaderCount;
 
-    public EntitiesViewHeaderTitlePanel(String idPrefix, String titleText, long count, VaadinIcon vaadinIcon) {
+    public EntitiesViewHeaderTitlePanel(String idPrefix, String titleText, T entitiesDataProvider, VaadinIcon vaadinIcon) {
         setId(idPrefix + VIEW_HEADER_TITLE_PANEL_ID_SUFFIX);
         addClassName(ENTITIES_ID_PREFIX + VIEW_HEADER_TITLE_PANEL_ID_SUFFIX);
 
-        entitiesViewHeaderIcon = new EntitiesViewHeaderIcon(idPrefix, vaadinIcon);
-        entitiesViewHeaderType = new EntitiesViewHeaderType(idPrefix, titleText);
-        entitiesViewHeaderCount = new EntitiesViewHeaderCount(idPrefix, count);
+        entitiesViewHeaderIcon = new EntitiesViewHeaderIcon<>(idPrefix, vaadinIcon, entitiesDataProvider);
+        entitiesViewHeaderType = new EntitiesViewHeaderType<>(idPrefix, titleText, entitiesDataProvider);
+        entitiesViewHeaderCount = new EntitiesViewHeaderCount<>(idPrefix, entitiesDataProvider);
 
         add(entitiesViewHeaderIcon, entitiesViewHeaderType, entitiesViewHeaderCount);
         setVerticalComponentAlignment(FlexComponent.Alignment.CENTER, entitiesViewHeaderIcon, entitiesViewHeaderType, entitiesViewHeaderCount);

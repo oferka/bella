@@ -4,6 +4,7 @@ import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import org.ok.bella.ui.EntityType;
+import org.ok.bella.ui.employees.dp.EmployeesDataProvider;
 import org.ok.bella.ui.entities.EntitiesView;
 import org.ok.bella.ui.entities.EntitiesViewBody;
 import org.ok.bella.ui.main.MainView;
@@ -32,7 +33,7 @@ public class EmployeesView extends EntitiesView<EmployeesDataProvider> {
     }
 
     @Override
-    protected EntitiesViewBody getViewBody() {
-        return new EmployeesViewBody();
+    protected EntitiesViewBody<EmployeesDataProvider> getViewBody(EmployeesDataProvider employeesDataProvider) {
+        return new EmployeesViewBody(employeesDataProvider);
     }
 }
