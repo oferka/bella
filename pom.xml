@@ -9,28 +9,28 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.4.4</version>
+        <version>2.4.5</version>
     </parent>
     <scm>
         <url>https://github.com/oferka/bella</url>
     </scm>
     <properties>
         <java.version>14</java.version>
-        <vaadin.version>14.5.1</vaadin.version>
+        <vaadin.version>14.5.3</vaadin.version>
         <maven.compiler.source>14</maven.compiler.source>
         <maven.compiler.target>14</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <spring-data-elasticsearch.version>4.1.5</spring-data-elasticsearch.version>
-        <jackson.version>2.12.2</jackson.version>
-        <jackson-datatype-jsr310.version>2.12.2</jackson-datatype-jsr310.version>
+        <spring-data-elasticsearch.version>4.2.0</spring-data-elasticsearch.version>
+        <jackson.version>2.12.3</jackson.version>
+        <jackson-datatype-jsr310.version>2.12.3</jackson-datatype-jsr310.version>
         <commons-logging.version>1.2</commons-logging.version>
-        <commons-lang3.version>3.11</commons-lang3.version>
+        <commons-lang3.version>3.12.0</commons-lang3.version>
         <javafaker.version>1.0.2</javafaker.version>
         <validation-api.version>2.0.1.Final</validation-api.version>
         <spring-cloud-dependencies.version>2020.0.2</spring-cloud-dependencies.version>
         <snakeyaml.version>1.28</snakeyaml.version>
-        <springdoc.version>1.5.6</springdoc.version>
+        <springdoc.version>1.5.7</springdoc.version>
         <asciidoctor-plugin.version>2.1.0</asciidoctor-plugin.version>
         <snippetsDirectory>${project.build.directory}/generated-snippets</snippetsDirectory>
     </properties>
