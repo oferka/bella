@@ -3,8 +3,8 @@ package org.ok.bella.ui.employees;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import org.ok.bella.model.Employee;
 import org.ok.bella.ui.EntityType;
-import org.ok.bella.ui.employees.dp.EmployeesDataProvider;
 import org.ok.bella.ui.entities.EntitiesDataProvider;
 import org.ok.bella.ui.entities.EntitiesView;
 import org.ok.bella.ui.entities.EntitiesViewBody;
@@ -18,13 +18,13 @@ import static org.ok.bella.ui.employees.EmployeesView.*;
 @Route(value = EMPLOYEES_ROUTE, layout = MainView.class)
 @PageTitle(EMPLOYEES_VIEW_NAME)
 @CssImport(VIEWS_FOLDER + EMPLOYEES_ID_PREFIX + "/" + EMPLOYEES_ID_PREFIX + VIEW_ID_SUFFIX + CSS_FILE_EXTENSION)
-public class EmployeesView extends EntitiesView {
+public class EmployeesView extends EntitiesView<Employee> {
 
     public static final String EMPLOYEES_ROUTE = "employees";
     public static final String EMPLOYEES_VIEW_NAME = "Employees";
     public static final String EMPLOYEES_ID_PREFIX = "employees";
 
-    public EmployeesView(EntitiesDataProvider entitiesDataProvider) {
+    public EmployeesView(EntitiesDataProvider<Employee> entitiesDataProvider) {
         super(entitiesDataProvider);
     }
 
@@ -34,7 +34,7 @@ public class EmployeesView extends EntitiesView {
     }
 
     @Override
-    protected EntitiesViewBody getViewBody(EntitiesDataProvider entitiesDataProvider) {
+    protected EntitiesViewBody<Employee> getViewBody(EntitiesDataProvider<Employee> entitiesDataProvider) {
         return new EmployeesViewBody(entitiesDataProvider);
     }
 }

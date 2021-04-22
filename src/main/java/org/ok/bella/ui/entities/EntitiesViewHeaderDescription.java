@@ -2,6 +2,7 @@ package org.ok.bella.ui.entities;
 
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.Span;
+import org.ok.bella.model.Entity;
 
 import javax.validation.constraints.NotNull;
 
@@ -11,11 +12,11 @@ import static org.ok.bella.ui.entities.EntitiesView.ENTITIES_ID_PREFIX;
 import static org.ok.bella.ui.entities.EntitiesViewHeaderDescription.VIEW_HEADER_DESCRIPTION_ID_SUFFIX;
 
 @CssImport(VIEWS_FOLDER + ENTITIES_ID_PREFIX + "/" + ENTITIES_ID_PREFIX + VIEW_HEADER_DESCRIPTION_ID_SUFFIX + CSS_FILE_EXTENSION)
-public class EntitiesViewHeaderDescription extends Span {
+public class EntitiesViewHeaderDescription<E extends Entity> extends Span {
 
     public static final String VIEW_HEADER_DESCRIPTION_ID_SUFFIX = "-view-header-description";
 
-    public EntitiesViewHeaderDescription(String idPrefix, String descriptionText, EntitiesDataProvider entitiesDataProvider) {
+    public EntitiesViewHeaderDescription(String idPrefix, String descriptionText, EntitiesDataProvider<E> entitiesDataProvider) {
         setId(idPrefix + VIEW_HEADER_DESCRIPTION_ID_SUFFIX);
         addClassName(ENTITIES_ID_PREFIX + VIEW_HEADER_DESCRIPTION_ID_SUFFIX);
 

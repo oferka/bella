@@ -16,11 +16,11 @@ import static org.ok.bella.ui.entities.EntitiesView.ENTITIES_ID_PREFIX;
 import static org.ok.bella.ui.entities.EntitiesViewBody.VIEW_BODY_ID_SUFFIX;
 
 @CssImport(VIEWS_FOLDER + ENTITIES_ID_PREFIX + "/" + ENTITIES_ID_PREFIX + VIEW_BODY_ID_SUFFIX + CSS_FILE_EXTENSION)
-public abstract class EntitiesViewBody extends VerticalLayout {
+public abstract class EntitiesViewBody<E extends Entity> extends VerticalLayout {
 
     public static final String VIEW_BODY_ID_SUFFIX = "-view-body";
 
-    private EntitiesViewBody(String idPrefix, Class<? extends EntityView> entityNavigationTarget, EntitiesDataProvider entitiesDataProvider) {
+    private EntitiesViewBody(String idPrefix, Class<? extends EntityView> entityNavigationTarget, EntitiesDataProvider<E> entitiesDataProvider) {
         setId(idPrefix + VIEW_BODY_ID_SUFFIX);
         addClassName(ENTITIES_ID_PREFIX + VIEW_BODY_ID_SUFFIX);
         addClassName(idPrefix + VIEW_BODY_ID_SUFFIX);
@@ -28,13 +28,13 @@ public abstract class EntitiesViewBody extends VerticalLayout {
         setHeightFull();
         setAlignItems(FlexComponent.Alignment.CENTER);
 
-        List<Entity> entities = entitiesDataProvider.getItems();
+        List<E> entities = entitiesDataProvider.getItems();
         for(Entity entity : entities) {
             add(new RouterLink(entity.getId(), entityNavigationTarget, entity.getId()));
         }
     }
 
-    public EntitiesViewBody(EntityType entityType, EntitiesDataProvider entitiesDataProvider) {
+    public EntitiesViewBody(EntityType entityType, EntitiesDataProvider<E> entitiesDataProvider) {
         this(entityType.getEntityIdPrefix(), entityType.getEntityViewClass(), entitiesDataProvider);
     }
 }
