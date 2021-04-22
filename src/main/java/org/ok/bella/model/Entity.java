@@ -18,14 +18,14 @@ public abstract class Entity {
     @Size(min = 2, max = 64)
     @NotBlank
     @Field(type = Keyword)
-    private String id;
+    private final String id;
 
     @Getter
     @NotNull
     @Size(min = 2, max = 64)
     @NotBlank
     @Field(type = Keyword)
-    private String name;
+    private final String name;
 
     public Entity(String id, String name) {
         this.id = id;
