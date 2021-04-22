@@ -16,11 +16,11 @@ import static org.ok.bella.ui.entities.EntitiesView.ENTITIES_ID_PREFIX;
 import static org.ok.bella.ui.entities.EntitiesViewBody.VIEW_BODY_ID_SUFFIX;
 
 @CssImport(VIEWS_FOLDER + ENTITIES_ID_PREFIX + "/" + ENTITIES_ID_PREFIX + VIEW_BODY_ID_SUFFIX + CSS_FILE_EXTENSION)
-public abstract class EntitiesViewBody<T extends EntitiesDataProvider> extends VerticalLayout {
+public abstract class EntitiesViewBody extends VerticalLayout {
 
     public static final String VIEW_BODY_ID_SUFFIX = "-view-body";
 
-    private EntitiesViewBody(String idPrefix, Class<? extends EntityView> entityNavigationTarget, T entitiesDataProvider) {
+    private EntitiesViewBody(String idPrefix, Class<? extends EntityView> entityNavigationTarget, EntitiesDataProvider entitiesDataProvider) {
         setId(idPrefix + VIEW_BODY_ID_SUFFIX);
         addClassName(ENTITIES_ID_PREFIX + VIEW_BODY_ID_SUFFIX);
         addClassName(idPrefix + VIEW_BODY_ID_SUFFIX);
@@ -34,7 +34,7 @@ public abstract class EntitiesViewBody<T extends EntitiesDataProvider> extends V
         }
     }
 
-    public EntitiesViewBody(EntityType entityType, T entitiesDataProvider) {
+    public EntitiesViewBody(EntityType entityType, EntitiesDataProvider entitiesDataProvider) {
         this(entityType.getEntityIdPrefix(), entityType.getEntityViewClass(), entitiesDataProvider);
     }
 }

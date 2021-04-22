@@ -11,24 +11,24 @@ import static org.ok.bella.ui.entities.EntitiesView.ENTITIES_ID_PREFIX;
 import static org.ok.bella.ui.entities.EntitiesViewHeader.VIEW_HEADER_ID_SUFFIX;
 
 @CssImport(VIEWS_FOLDER + ENTITIES_ID_PREFIX + "/" + ENTITIES_ID_PREFIX + VIEW_HEADER_ID_SUFFIX + CSS_FILE_EXTENSION)
-public class EntitiesViewHeader<T extends EntitiesDataProvider> extends HorizontalLayout {
+public class EntitiesViewHeader extends HorizontalLayout {
 
     public static final String VIEW_HEADER_ID_SUFFIX = "-view-header";
 
-    private final EntitiesViewHeaderInfo<T> entitiesViewHeaderInfo;
-    private final EntitiesViewHeaderActions<T> entitiesViewHeaderActions;
+    private final EntitiesViewHeaderInfo entitiesViewHeaderInfo;
+    private final EntitiesViewHeaderActions entitiesViewHeaderActions;
 
-    public EntitiesViewHeader(String idPrefix, String titleText, T entitiesDataProvider, String descriptionText, String entityName, VaadinIcon vaadinIcon) {
+    public EntitiesViewHeader(String idPrefix, String titleText, EntitiesDataProvider entitiesDataProvider, String descriptionText, String entityName, VaadinIcon vaadinIcon) {
         setId(idPrefix + VIEW_HEADER_ID_SUFFIX);
         addClassName(ENTITIES_ID_PREFIX + VIEW_HEADER_ID_SUFFIX);
 
         setWidthFull();
         setAlignItems(FlexComponent.Alignment.CENTER);
 
-        entitiesViewHeaderInfo = new EntitiesViewHeaderInfo<>(idPrefix, titleText, entitiesDataProvider, descriptionText, vaadinIcon);
+        entitiesViewHeaderInfo = new EntitiesViewHeaderInfo(idPrefix, titleText, entitiesDataProvider, descriptionText, vaadinIcon);
         add(entitiesViewHeaderInfo);
 
-        entitiesViewHeaderActions = new EntitiesViewHeaderActions<>(idPrefix, entityName, entitiesDataProvider);
+        entitiesViewHeaderActions = new EntitiesViewHeaderActions(idPrefix, entityName, entitiesDataProvider);
         add(entitiesViewHeaderActions);
     }
 }

@@ -10,11 +10,11 @@ import static org.ok.bella.ui.entities.EntitiesView.ENTITIES_ID_PREFIX;
 import static org.ok.bella.ui.entities.EntitiesViewHeaderCount.VIEW_HEADER_COUNT_ID_SUFFIX;
 
 @CssImport(VIEWS_FOLDER + ENTITIES_ID_PREFIX + "/" + ENTITIES_ID_PREFIX + VIEW_HEADER_COUNT_ID_SUFFIX + CSS_FILE_EXTENSION)
-public class EntitiesViewHeaderCount<T extends EntitiesDataProvider> extends H2 {
+public class EntitiesViewHeaderCount extends H2 {
 
     public static final String VIEW_HEADER_COUNT_ID_SUFFIX = "-view-header-count";
 
-    public EntitiesViewHeaderCount(String idPrefix, T entitiesDataProvider) {
+    public EntitiesViewHeaderCount(String idPrefix, EntitiesDataProvider entitiesDataProvider) {
         setId(idPrefix + VIEW_HEADER_COUNT_ID_SUFFIX);
         addClassName(ENTITIES_ID_PREFIX + VIEW_HEADER_COUNT_ID_SUFFIX);
 
