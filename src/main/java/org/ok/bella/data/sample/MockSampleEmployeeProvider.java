@@ -1,5 +1,7 @@
 package org.ok.bella.data.sample;
 
+import com.github.javafaker.Faker;
+import lombok.extern.slf4j.Slf4j;
 import org.ok.bella.model.Employee;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,7 @@ import java.util.UUID;
 import static java.lang.String.format;
 
 @Service
+@Slf4j
 public class MockSampleEmployeeProvider implements SampleEmployeeProvider {
 
     @Override
@@ -29,7 +32,10 @@ public class MockSampleEmployeeProvider implements SampleEmployeeProvider {
 
     private @NotNull Employee getItem(int itemNumber) {
         String id = UUID.randomUUID().toString();
-        String name = format("employee %s", itemNumber);
-        return new Employee(id, name);
+        String name = new Faker().name().name();
+        String title = new Faker().job().title();
+        Employee result = new Employee(id, name, title);
+        log.info(result.toString());
+        return result;
     }
 }

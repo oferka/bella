@@ -21,9 +21,11 @@ public class EntitiesFilterButton<E extends Entity> extends Button {
     public static final String FILTER_BUTTON_ID_SUFFIX = "-filter-button";
 
     private final String idPrefix;
+    private final EntitiesDataProvider<E> entitiesDataProvider;
 
     public EntitiesFilterButton(String idPrefix, EntitiesDataProvider<E> entitiesDataProvider) {
         this.idPrefix = idPrefix;
+        this.entitiesDataProvider = entitiesDataProvider;
         setId(idPrefix + FILTER_BUTTON_ID_SUFFIX);
         addClassName(ENTITIES_ID_PREFIX + FILTER_BUTTON_ID_SUFFIX);
 
@@ -34,6 +36,7 @@ public class EntitiesFilterButton<E extends Entity> extends Button {
     }
 
     private void filterClicked(ClickEvent<Button> event) {
-        Notification.show("Filter " + idPrefix, 3000, MIDDLE);
+        long count = entitiesDataProvider.count();
+        Notification.show("Filter " + idPrefix + " (" + count + ")", 3000, MIDDLE);
     }
 }

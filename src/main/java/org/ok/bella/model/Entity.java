@@ -2,6 +2,7 @@ package org.ok.bella.model;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.ToString;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Field;
 
@@ -11,7 +12,6 @@ import javax.validation.constraints.Size;
 
 import static org.springframework.data.elasticsearch.annotations.FieldType.Keyword;
 
-@EqualsAndHashCode
 public abstract class Entity {
 
     @Id
