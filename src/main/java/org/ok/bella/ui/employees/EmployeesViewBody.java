@@ -11,7 +11,7 @@ import static org.ok.bella.ui.Styles.VIEWS_FOLDER;
 import static org.ok.bella.ui.employees.EmployeesView.EMPLOYEES_ID_PREFIX;
 import static org.ok.bella.ui.entities.EntitiesView.VIEW_ID_SUFFIX;
 
-@CssImport(VIEWS_FOLDER + EMPLOYEES_ID_PREFIX + "/ " + EMPLOYEES_ID_PREFIX + VIEW_ID_SUFFIX + CSS_FILE_EXTENSION)
+@CssImport(VIEWS_FOLDER + EMPLOYEES_ID_PREFIX + "/" + EMPLOYEES_ID_PREFIX + VIEW_ID_SUFFIX + CSS_FILE_EXTENSION)
 public class EmployeesViewBody extends EntitiesViewBody<Employee> {
 
     public EmployeesViewBody(EntitiesDataProvider<Employee> entitiesDataProvider) {
