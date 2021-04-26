@@ -14,12 +14,16 @@ public class EntitiesViewHeaderActions<E extends Entity> extends HorizontalLayou
 
     public static final String VIEW_HEADER_ACTIONS_ID_SUFFIX = "-view-header-actions";
 
+    private final EntitiesPresentationTypeSelector<E> entitiesPresentationTypeSelector;
     private final EntitiesFilterButton<E> entitiesFilterButton;
     private final EntitiesNewButton<E> entitiesNewButton;
 
     public EntitiesViewHeaderActions(String idPrefix, String entityName, EntitiesDataProvider<E> entitiesDataProvider) {
         setId(idPrefix + VIEW_HEADER_ACTIONS_ID_SUFFIX);
         addClassName(ENTITIES_ID_PREFIX + VIEW_HEADER_ACTIONS_ID_SUFFIX);
+
+        entitiesPresentationTypeSelector = new EntitiesPresentationTypeSelector<>(idPrefix, entitiesDataProvider);
+        add(entitiesPresentationTypeSelector);
 
         entitiesFilterButton = new EntitiesFilterButton<>(idPrefix, entitiesDataProvider);
         add(entitiesFilterButton);
